@@ -114,12 +114,12 @@ class MVVMWeatherTableViewModel {
 	//MARK: Weather fetching
 	
 	var searchText:String? {
-		didSet {
-			if let text = searchText {
-				let urlString = Constants.baseURL + text.stringByReplacingOccurrencesOfString(" ", withString: "%20") + Constants.urlExtension
-				getWeatherForRequest(urlString)
-			}
-		}
+        didSet {
+            guard let text = searchText where text.characters.count > 0 else { return }
+            
+            let urlString = Constants.baseURL + text.stringByReplacingOccurrencesOfString(" ", withString: "%20") + Constants.urlExtension
+            getWeatherForRequest(urlString)
+        }
 	}
 	
 	func getWeatherForRequest(urlString: String) {
